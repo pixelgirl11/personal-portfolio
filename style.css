@@ -1,0 +1,1077 @@
+/* ==========================================================================
+   DESIGN SYSTEM & CUSTOM PROPERTIES
+   ========================================================================== */
+:root {
+    /* Color Palette - Light Mode (Zara Inspired: stark, cream, thin grey grid) */
+    --bg-primary: #ffffff;
+    --bg-secondary: #faf9f6;
+    --bg-tertiary: #f2f0ea;
+    --text-primary: #0a0a0a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7d7d7d;
+    --border-color: #e2e2e2;
+    --border-hover: #0a0a0a;
+    --accent-color: #0a0a0a;
+    --pastel-accent: #efe5fa; /* Premium pastel lavender/purple */
+    
+    /* Typography */
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'Space Mono', Courier, monospace;
+    
+    /* Layout Spacing */
+    --container-padding: 6vw;
+    --section-spacing-y: clamp(6rem, 10vw, 15rem);
+    
+    /* Transitions */
+    --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fast: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] {
+    /* Color Palette - Dark Mode (Obsidian, rich charcoal, soft cream text) */
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #121212;
+    --bg-tertiary: #191919;
+    --text-primary: #f5f3ef;
+    --text-secondary: #b8b6b2;
+    --text-muted: #6e6d6b;
+    --border-color: #242424;
+    --border-hover: #f5f3ef;
+    --accent-color: #f5f3ef;
+    --pastel-accent: #21182c; /* Muted slate lavender/purple for dark mode */
+}
+
+/* ==========================================================================
+   RESET & CORE DEFAULTS
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%; /* 1rem = 10px */
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 1.6rem;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Vertical grid lines running in background */
+.grid-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 var(--container-padding);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.grid-line {
+    width: 1px;
+    height: 100%;
+    background-color: var(--border-color);
+    opacity: 0.4;
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* Common Helper Classes */
+.mono-label {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.italic-play {
+    font-family: var(--font-serif);
+    font-style: italic;
+}
+
+.font-bold {
+    font-weight: 600;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   NAVIGATION & HEADER
+   ========================================================================== */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--container-padding);
+    background-color: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 100;
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] .site-header {
+    background-color: rgba(10, 10, 10, 0.01);
+}
+
+/* Zara Logo Style - Contrast of script first name and bold compressed uppercase last name */
+.header-logo .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.75;
+    font-family: var(--font-serif);
+}
+
+.logo-first {
+    font-size: 1.8rem;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: var(--text-secondary);
+    margin-bottom: 0.1rem;
+}
+
+.logo-last {
+    font-size: 2.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.06em;
+    color: var(--text-primary);
+}
+
+/* Nav Links */
+.site-nav {
+    display: flex;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 3.5rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.nav-num {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    margin-right: 0.6rem;
+    opacity: 0.6;
+}
+
+.nav-txt {
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--text-primary);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--text-primary);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Theme Button toggle */
+.theme-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: var(--transition-fast);
+}
+
+.theme-btn:hover {
+    border-color: var(--text-primary);
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+}
+
+.theme-status {
+    opacity: 0.5;
+    transition: var(--transition-fast);
+}
+
+.theme-btn:hover .theme-status {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   PORTFOLIO PAGES / SECTIONS
+   ========================================================================== */
+.portfolio-container {
+    padding: 0 var(--container-padding);
+}
+
+.section {
+    position: relative;
+    padding-top: 12rem;
+    padding-bottom: 12rem;
+    border-bottom: 1px solid var(--border-color);
+    min-height: calc(100vh - 9rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-badge {
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    z-index: 15;
+    background-color: var(--pastel-accent);
+    padding: 0.6rem 1.6rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-badge .mono-label {
+    color: var(--text-primary);
+    opacity: 0.85;
+}
+
+.section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(4rem, 6vw, 7.5rem);
+    font-weight: 300;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    margin-bottom: 3rem;
+}
+
+.section-paragraph {
+    font-family: var(--font-sans);
+    font-size: clamp(1.6rem, 1.8vw, 2rem);
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 58rem;
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.hero-section {
+    padding-top: 16rem;
+    padding-bottom: 6rem;
+    min-height: 100vh;
+}
+
+.hero-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hero-title-container {
+    margin: auto 0;
+    padding: 4rem 0;
+}
+
+.hero-title {
+    font-family: var(--font-serif);
+    font-size: clamp(5.5rem, 11vw, 12rem);
+    font-weight: 300;
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-line {
+    display: block;
+}
+
+/* Overlapping typography detail reminiscent of editorial covers */
+.title-line:nth-child(even) {
+    padding-left: 10vw;
+}
+
+.hero-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid var(--border-color);
+    padding-top: 4rem;
+    margin-top: 4rem;
+    transition: border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(2rem, 5vw, 8rem);
+    width: 70%;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.meta-val {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-primary);
+}
+
+/* Scroll Prompt Button */
+.hero-scroll-prompt {
+    display: flex;
+    align-items: flex-end;
+}
+
+.scroll-arrow-link {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-end;
+    position: relative;
+}
+
+.scroll-line {
+    width: 1px;
+    height: 6rem;
+    background-color: var(--text-primary);
+    transform-origin: bottom;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-arrow-link:hover .scroll-line {
+    transform: scaleY(0.5);
+    transform-origin: top;
+}
+
+/* ==========================================================================
+   EDUCATION SECTION
+   ========================================================================== */
+.education-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 8vw;
+    align-items: center;
+}
+
+.edu-card {
+    background-color: var(--pastel-accent);
+    border: 1px solid var(--border-color);
+    padding: 4.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    transition: var(--transition-smooth);
+}
+
+.edu-card:hover {
+    border-color: var(--text-primary);
+    background-color: var(--bg-primary);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] .edu-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.edu-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2.5rem;
+}
+
+.edu-inst {
+    font-family: var(--font-serif);
+    font-size: clamp(2.8rem, 4vw, 4rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+.edu-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.edu-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 1.2rem;
+}
+
+.edu-detail-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.detail-label {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.detail-value {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.text-active {
+    color: var(--text-primary);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.text-active::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #00bf72; /* Subtle active green */
+    border-radius: 50%;
+}
+
+.edu-card-footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--border-color);
+    padding-top: 2.5rem;
+}
+
+/* ==========================================================================
+   HOBBIES SECTION
+   ========================================================================== */
+.hobbies-intro {
+    margin-bottom: 8rem;
+}
+
+.hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 6vw;
+    row-gap: 8rem;
+}
+
+.hobby-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.hobby-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    transition: var(--transition-smooth);
+}
+
+.hobby-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.2) contrast(1.02);
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hobby-image-wrapper:hover .hobby-image {
+    transform: scale(1.04);
+    filter: grayscale(0) contrast(1);
+}
+
+.hobby-image-wrapper:hover {
+    border-color: var(--text-primary);
+}
+
+.hobby-index {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.6rem 1.2rem;
+    z-index: 5;
+    transition: var(--transition-smooth);
+}
+
+.hobby-image-wrapper:hover .hobby-index {
+    border-color: var(--text-primary);
+    background-color: var(--text-primary);
+}
+
+.hobby-image-wrapper:hover .hobby-index .mono-label {
+    color: var(--bg-primary);
+}
+
+.hobby-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+.hobby-category {
+    font-size: 1rem;
+}
+
+.hobby-title {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+}
+
+.hobby-desc {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 90%;
+}
+
+/* ==========================================================================
+   AMBITION SECTION
+   ========================================================================== */
+.ambition-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 45vh;
+    text-align: center;
+}
+
+.ambition-quote-wrapper {
+    position: relative;
+    padding: 6rem 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.quote-mark {
+    font-family: var(--font-serif);
+    font-size: clamp(10rem, 16vw, 20rem);
+    line-height: 0;
+    color: var(--border-color);
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    user-select: none;
+    transition: color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ambition-quote {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 5.5vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--text-primary);
+    max-width: 80%;
+    position: relative;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   CONTACT SECTION
+   ========================================================================== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 8vw;
+    align-items: center;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.contact-card {
+    background-color: var(--pastel-accent);
+    border: 1px solid var(--border-color);
+    padding: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: var(--transition-smooth);
+}
+
+.contact-card:hover {
+    border-color: var(--text-primary);
+    background-color: var(--bg-primary);
+}
+
+.contact-action-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.contact-link {
+    font-family: var(--font-serif);
+    font-size: clamp(2.4rem, 3vw, 3.6rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    word-break: break-all;
+    position: relative;
+    display: inline-block;
+}
+
+.contact-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--text-primary);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-card:hover .contact-link::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Copy Button and Arrow Link Styles */
+.copy-btn, .arrow-link {
+    background: none;
+    border: 1px solid var(--border-color);
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-fast);
+}
+
+.copy-text {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transform: translateY(3rem);
+    opacity: 0;
+    transition: var(--transition-fast);
+}
+
+.copy-icon {
+    transition: var(--transition-fast);
+}
+
+.copy-btn:hover, .arrow-link:hover {
+    border-color: var(--text-primary);
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+}
+
+.copy-btn:hover .copy-icon {
+    transform: translateY(-3rem);
+    opacity: 0;
+}
+
+.copy-btn:hover .copy-text {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.arrow-link svg {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.arrow-link:hover svg {
+    transform: translate(2px, -2px);
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.site-footer {
+    padding: 8rem var(--container-padding) 6rem;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+}
+
+.footer-copy-info {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 2.5rem;
+}
+
+/* ==========================================================================
+   INTERACTIVE FEEDBACK (TOAST)
+   ========================================================================== */
+.toast-message {
+    position: fixed;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(3rem);
+    background-color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem 3rem;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-message.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.toast-message .mono-label {
+    color: var(--bg-primary);
+}
+
+/* ==========================================================================
+   SCROLL REVEAL ANIMATIONS
+   ========================================================================== */
+.reveal-up {
+    transform: translateY(5rem);
+    opacity: 0;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-up.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Smooth clip-path line-by-line reveal for big text */
+.reveal-text {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    transition: clip-path 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-text.active {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Stagger delays for beautiful loading orchestration */
+.reveal-up:nth-child(1) { transition-delay: 0.1s; }
+.reveal-up:nth-child(2) { transition-delay: 0.2s; }
+.reveal-up:nth-child(3) { transition-delay: 0.3s; }
+.reveal-up:nth-child(4) { transition-delay: 0.4s; }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1024px) {
+    :root {
+        --container-padding: 5vw;
+    }
+    
+    .grid-overlay {
+        padding: 0 var(--container-padding);
+    }
+    
+    /* Remove one grid line on tablet */
+    .grid-overlay .grid-line:last-child {
+        display: none;
+    }
+    
+    .education-grid, .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 6rem;
+    }
+    
+    .edu-left, .contact-left {
+        max-width: 100%;
+    }
+    
+    .hero-meta {
+        width: 100%;
+    }
+    
+    .hobbies-grid {
+        gap: 5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --container-padding: 2.4rem;
+    }
+    
+    .site-header {
+        height: 8rem;
+    }
+    
+    /* Hide navigation numbers/menu items for clean mobile look, stack options */
+    .site-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-primary);
+        border-top: 1px solid var(--border-color);
+        padding: 1.5rem 0;
+        justify-content: center;
+        z-index: 100;
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.02);
+    }
+    
+    .nav-links {
+        width: 100%;
+        justify-content: space-around;
+        gap: 0;
+    }
+    
+    .nav-num {
+        display: none;
+    }
+    
+    .nav-txt {
+        font-size: 1rem;
+    }
+    
+    .header-actions {
+        margin-left: auto;
+    }
+    
+    .portfolio-container {
+        padding-bottom: 8rem; /* Space for bottom floating mobile nav */
+    }
+    
+    .section {
+        padding-top: 10rem;
+        padding-bottom: 10rem;
+    }
+    
+    .hero-section {
+        padding-top: 14rem;
+    }
+    
+    .title-line:nth-child(even) {
+        padding-left: 0;
+    }
+    
+    .hero-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4rem;
+    }
+    
+    .hero-meta {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .hero-scroll-prompt {
+        display: none; /* Hide scroll line on mobile */
+    }
+    
+    .hobbies-grid {
+        grid-template-columns: 1fr;
+        row-gap: 6rem;
+    }
+    
+    .ambition-footer {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
+    
+    .footer-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .edu-card, .contact-card {
+        padding: 3rem 2rem;
+    }
+    
+    .grid-overlay .grid-line:nth-child(2),
+    .grid-overlay .grid-line:nth-child(3) {
+        display: none; /* Only borders left and right on mobile */
+    }
+}
+
+/* ==========================================================================
+   POETIC QUOTE DIVIDER
+   ========================================================================== */
+.quote-banner {
+    padding: clamp(8rem, 12vw, 15rem) 0;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 15;
+    background-color: var(--bg-primary);
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.poetic-quote {
+    font-family: var(--font-serif);
+    font-size: clamp(2.6rem, 4.2vw, 4.8rem);
+    font-style: italic;
+    color: var(--text-primary);
+    line-height: 1.35;
+    max-width: 90rem;
+    font-weight: 300;
+}
+
+.poetic-quote cite {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-style: normal;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-top: 3rem;
+    color: var(--text-muted);
+}
