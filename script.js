@@ -1,3 +1,5 @@
+const scrollSpyObserverOptions = { threshold: 0.2 };
+
 document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // 1. THEME MANAGEMENT (Light / Dark Mode Toggle)
@@ -9,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check system preference or localStorage
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     // Set initial theme
     const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
     setTheme(initialTheme);
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function setTheme(theme) {
         htmlElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
-        
+
         // Update button status label
         if (theme === 'dark') {
             themeStatusText.textContent = 'Dark';
@@ -41,12 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             const targetId = link.getAttribute('href');
-            
+
             // Only handle internal anchor links
             if (targetId && targetId.startsWith('#')) {
                 e.preventDefault();
                 const targetSection = document.querySelector(targetId);
-                
+
                 if (targetSection) {
                     const sectionTop = targetSection.offsetTop;
                     // Offset scroll position by header height for precise alignment
@@ -63,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. INTERSECTION OBSERVER FOR SCROLL REVEALS
     // ==========================================================================
     const revealElements = document.querySelectorAll('.reveal-up, .reveal-text');
-    
+
     const revealObserverOptions = {
         root: null,
         rootMargin: '0px',
@@ -97,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const activeId = entry.target.getAttribute('id');
-                
+
                 navItems.forEach(item => {
                     if (item.getAttribute('href') === `#${activeId}`) {
                         item.classList.add('active');
@@ -122,9 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
         copyBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            
+
             const emailAddress = emailLink.textContent.trim();
-            
+
             // Standard Clipboard API
             navigator.clipboard.writeText(emailAddress)
                 .then(() => {
@@ -152,14 +154,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
-        
+
         try {
             document.execCommand('copy');
             showToast();
         } catch (err) {
             console.error('Fallback copy failed', err);
         }
-        
+
         document.body.removeChild(textArea);
     }
 });
