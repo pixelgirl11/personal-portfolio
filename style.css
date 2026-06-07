@@ -671,16 +671,6 @@ a {
     transition: color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.ambition-quote {
-    font-family: var(--font-serif);
-    font-size: clamp(3rem, 5.5vw, 6.5rem);
-    font-weight: 300;
-    line-height: 1.15;
-    color: var(--text-primary);
-    max-width: 80%;
-    position: relative;
-    margin: 0 auto;
-}
 
 /* ==========================================================================
    CONTACT SECTION
